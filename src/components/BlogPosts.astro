@@ -19,7 +19,7 @@ const { items: articles } = await newtClient.getContents<Article>({
           <div class="post_body">
             <div class="post_tags">
             {
-              article.tags.map((tag) => {
+              article.tags.map((tag: { name: string }) => {
                   return (
                     <span class="post_tag">
                       {tag.name}

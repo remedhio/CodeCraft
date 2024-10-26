@@ -14,6 +14,10 @@ export interface Article {
     height: number
     altText: string
   }
+  tags: {
+    name: string
+    slug: string
+  }
 }
 export interface Tag {
   name: string

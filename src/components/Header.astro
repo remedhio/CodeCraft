@@ -27,8 +27,8 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
             return (
               <li class="gnav_item">
                 {
-                  Navigation.header_nav.map((nav) => {
-                    return(
+                  Navigation.header_nav.map((nav: { data: { link_text: string; link_url: string; } }) => {
+                return(
                       <a href={nav.data.link_url}>{nav.data.link_text}</a>
                     )
                   })

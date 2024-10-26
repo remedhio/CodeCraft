@@ -29,6 +29,5 @@ const { article } = Astro.props
   <p>{article.meta?.title}</p>
   <p>{article.meta?.description}</p>
   <img src={article.coverImage.src} loading="lazy"/>
-  <p>{article.coverImage.fileName}</p>
   <article set:html={article.body} />
 </Layout>
