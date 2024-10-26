@@ -14,10 +14,10 @@ export interface Article {
     height: number
     altText: string
   }
-  tags: {
+  tags: Array<{
     name: string
     slug: string
-  }
+  }>
 }
 export interface Tag {
   name: string
@@ -32,10 +32,9 @@ export interface Navigation {
     altText: string;
   };
   header_nav: {
-    data: {
-      link_text: string;
-      link_url: string;
-    }
+    header_nav: Array<
+    { data: { link_text: string; link_url: string; } }
+    >
   }
 }
 
