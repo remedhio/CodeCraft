@@ -1,0 +1,54 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+
+
+/* ##############################################################################
+
+    FOOTER
+
+############################################################################## */
+.footer {
+    padding-block: 88px;
+}
+.footer_top,
+.footer_btm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.footer_top {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-02);
+}
+.footer_btm {
+    padding-top: 32px;
+}
+.copyright_txt {
+    font-family: var(--font-en);
+    color: var(--clr-blk-80);
+}
+.footer_logo a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: rem(24);
+    @media(any-hover: hover) {
+        &:hover {
+            opacity: .8;
+        }
+    }
+}
+.fnav_list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+.fnav_list a {
+    @media(any-hover: hover) {
+        &:hover {
+            color: var(--clr-primary);
+        }
+    }
+}

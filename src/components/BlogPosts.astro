@@ -1,0 +1,66 @@
+---
+import { newtClient } from '../lib/newt'
+import type { Article } from '../lib/newt'
+
+const { items: articles } = await newtClient.getContents<Article>({
+  appUid: 'blog',
+  modelUid: 'article',
+})
+---
+
+<ul class="posts_list">
+  {
+    articles.map((article) => {
+      return (
+        <li class="post_item">
+          <figure class="post_img">
+            <img src={article.coverImage.src} width={article.coverImage.width} height={article.coverImage.height} alt={article.coverImage.altText} loading="lazy" class="img-cover"/>
+          </figure>
+          <div class="post_body">
+            <div class="post_tags">
+            {
+              article.tags.map((tag) => {
+                  return (
+                    <span class="post_tag">
+                      {tag.name}
+                    </span>
+                  )
+                })
+              }
+            </div>
+            <h2 class="post_ttl">
+              <a href={`/articles/${article.slug}`}>{article.title}</a>
+            </h2>
+          </div>
+        </li>
+      )
+    })
+  }
+</ul>
+
+<style lang="scss">
+	.posts_list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%) ,1fr));
+		gap: 32px;
+	}
+	.post_img {
+		aspect-ratio: 16/9;
+	}
+	.post_tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		padding-block: 1em;
+	}
+	.post_tag {
+		display: inline-block;
+		padding: 4px 12px;
+		background-color: #7a64d0;
+		color: #fff;
+	}
+	.post_ttl {
+		font-size: 1.5rem;
+	}
+
+</style>

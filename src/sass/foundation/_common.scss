@@ -1,0 +1,106 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+
+/* ##############################################################################
+
+    COMMON
+
+############################################################################## */
+html {
+  font-size: clamp(14px, vw(16), 16px);
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  @include mq(sp, min, ps) {
+    @include mq(med) {
+      font-size: rem($fz-sp);
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+  }
+  @include mq(sp) {
+    font-size: min(spvw($fz-sp), rem($fz-sp));
+  }
+}
+body {
+  font-family: var(--font-jp);
+  line-height: var(--line-height-default);
+  font-weight: 500;
+  font-feature-settings: "palt";
+  color: var(--clr-text);
+  height: 100%;
+  padding-top: rem($header-hgt);
+  background-color: var(--bg-01);
+  word-break: break-word;
+  @include mq(sp, min, ps) {
+    // フォントサイズ変更する場合　例：18pxの例：calc-clamp(18, $wid-var)
+    font-size: calc-clamp($fz-pc, $wid-var);
+    @include mq(med) {
+      &:not(.mce-content-body) {
+        min-width: rem(1080);
+      }
+    }
+  }
+  @include mq(med) {
+    padding-top: sprem($header-hgt-sp);
+  }
+  @include mq(sp) {
+    -webkit-text-size-adjust: none;
+  }
+}
+* {
+  letter-spacing: var(--ltr-space-default);
+}
+ul,
+ol { list-style: none; }
+small {
+  font-size: calc-fz(14);
+  @include mq(sp) {
+    font-size: sprem(13);
+  }
+}
+a,
+a[href="javascript:void(0);"]:hover {
+  color: var(--clr-text);
+  text-decoration: none;
+  transition: var(--transit-default);
+  outline : none;
+}
+a[href="javascript:void(0);"],
+a[href="javascript:void(0);"]::before {
+  color: inherit;
+  cursor: default;
+  opacity: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+a:focus {
+  text-decoration: none !important;
+}
+a[href^="tel:"] {
+  @include mq(sp, min, ps) {
+    pointer-events: none;
+  }
+}
+img {
+  vertical-align: middle;
+  @include mq(sp) {
+    max-width: 100%;
+    height: auto;
+  }
+}
+address,
+em,
+i {
+  font-style: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--line-height-hdr);
+}
+svg {
+  transition: var(--transit-default);
+  &[preserveAspectRatio="none"] {
+    height: auto;
+  }
+}

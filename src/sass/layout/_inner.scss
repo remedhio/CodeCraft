@@ -1,0 +1,25 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+
+
+/* --- inner --- */
+.inner {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  @include mq(sp) {
+    width: 86%;
+  }
+}
+.inner-sm { max-width: 800px; }
+.inner-lg { max-width: 1440px; }
+.inner-xl {
+  max-width: calc(100% - 112px);
+  @include mq(med)  {
+    max-width: 90%;
+  }
+  @include mq(sp) {
+    max-width: 86%;
+  }
+}

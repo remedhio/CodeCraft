@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "astro": "^4.16.7",
     "newt-client-js": "^3.3.6",
+    "sass": "^1.80.4",
     "typescript": "^5.6.3"
   }
 }

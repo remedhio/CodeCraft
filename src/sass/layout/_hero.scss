@@ -1,0 +1,43 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+@use '../utilities' as *;
+
+
+/* hero
+********************************************** */
+.hero {
+  position: relative;
+  height: rem(767);
+}
+.hero_inner {
+  width: 100%;
+  height: 100%;
+}
+.hero_img {
+  width: calc(1440 / 1920 * 100%);
+  height: 100%;
+  margin-left: auto;
+}
+.hero_img img {
+  @extend .img-cover;
+}
+.hero_txtarea {
+  position: absolute;
+  bottom: rem(72);
+  left: rem(72);
+}
+.hero_txt {
+  display: inline-block;
+  padding: rem(10) rem(16);
+  font-size: rem(16);
+  font-weight: 500;
+  background-color: var(--clr-wh);
+}
+.hero_ttl {
+  padding: rem(8) rem(24);
+  font-size: clamp(32px, vw(56), 56px);
+  font-weight: 800;
+  line-height: 1.42;
+  background-color: var(--clr-primary);
+  color: var(--clr-wh);
+}

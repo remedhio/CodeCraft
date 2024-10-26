@@ -1,0 +1,19 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+
+
+
+/* bg
+********************************************** */
+.bg-01 {
+  background-color: var(--bg-01);
+}
+.bg-02 {
+  background-color: var(--bg-02);
+}
+.bg-03 {
+  background-color: var(--bg-03);
+}
+.bg-03 {
+  background-color: var(--bg-04);
+}

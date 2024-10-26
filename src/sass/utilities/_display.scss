@@ -1,0 +1,21 @@
+@use '../settings' as *;
+@use '../mixins' as *;
+
+
+/* --- pc or sp --- */
+.pc-none {
+  display: none;
+}
+.sp-none {
+  display: block;
+}
+
+@include mq(sp) {
+  /* --- pc or sp --- */
+  .sp-none {
+    display: none;
+  }
+  .pc-none {
+    display: block;
+  }
+}

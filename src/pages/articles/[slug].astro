@@ -7,12 +7,14 @@ export const getStaticPaths = async() => {
   const { items: articles } = await newtClient.getContents<Article>({
     appUid: 'blog',
     modelUid: 'article',
-    query: {
-      select: ['title', 'slug', 'body'],
-    },
+    // query: {
+    //   select: ['title', 'slug', 'meta', 'coverImage', 'body'],
+    // },
   })
   return articles.map((article) => ({
-    params: { slug: article.slug },
+    params: {
+      slug: article.slug,
+    },
     props: { article },
   }))
 }
@@ -22,9 +24,11 @@ const { article } = Astro.props
 ---
 
 <Layout title="投稿詳細ページ" description="投稿詳細ページです。">
-  <main>
-    <h2>{article.title}</h2>
-    <article set:html={article.body} />
-    <p>testとして入れています。</p>
-  </main>
+  <h2>{article.title}</h2>
+  <p>{article.slug}</p>
+  <p>{article.meta?.title}</p>
+  <p>{article.meta?.description}</p>
+  <img src={article.coverImage.src} loading="lazy"/>
+  <p>{article.coverImage.fileName}</p>
+  <article set:html={article.body} />
 </Layout>

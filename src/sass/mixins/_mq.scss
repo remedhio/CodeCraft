@@ -1,0 +1,72 @@
+@use 'sass:math';
+
+$em-breakpoints: (
+  xl: 160, // 2560px
+  lg: 120, // 1920px
+  pc: 85.375, // 1366px
+  med: 67.5, // 1080px
+  sp: 47.9375, // 767px
+  sm: 40, // 640px
+  xs: 34.375, // 500px
+  se: 21.25, // 350px
+);
+$px-breakpoints: (
+  xl: 2560,
+  lg: 1920,
+  pc: 1366,
+  med: 1080,
+  sp: 767,
+  sm: 640,
+  xs: 500,
+  se: 350,
+);
+
+/// メディアクエリーを簡単に呼び出す
+/// @param {文字列｜数字} $mq-breakpoint (デフォルト：SP)
+///    ターゲットのブレーキポイント。数字を入れたら、その値を使う
+/// @param {文字列} $mq-width (デフォルト：max)
+///    {$mq-width}-widthのブレーキポイントを生成。maxまたmin入力可能。minを使う場合、入れた値に１pxが足される
+/// @param {文字列} $mq-type (デフォルト：screen)
+///    媒体ターゲット。ps (print, screen) と p (print) 入れられます。
+/// @param {マップ} $mq-breakpoints
+///    _variables の $em-breakpointsのマップ。デフォルトで、em単位を使うバージョンですが、 $px-breakpoints もあります。（未対応）
+/// @return {文字列} @media {$mq-type} and ({$mq-width}-width:em) {}
+
+@mixin mq($mq-breakpoint: 'sp', $mq-width: 'max', $mq-type: 'screen', $mq-breakpoints: $em-breakpoints) {
+  // デフォルトで $em-breakpointsのマップを使って、単位をem、1pxの値を0.0625にする
+    $unit: 'em';
+    $onepx: 0.0625;
+  // pxを入れる場合、単位と1pxの値を変換する
+  @if $mq-breakpoints == 'px' {
+    $mq-breakpoints: $px-breakpoints;
+    $onepx: 1;
+    $unit: 'px';
+  }
+  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+      $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+  }
+  @else {
+    @if $mq-breakpoints == $em-breakpoints {
+      $mq-breakpoint: math.div($mq-breakpoint, 16);
+    }
+  }
+  @if $mq-type == 'ps' {
+    $mq-type: 'print, screen';
+  }
+  @if $mq-type == 'p' {
+    $mq-type: 'print';
+  }
+  @if $mq-type == 's' {
+    $mq-type: 'screen';
+  }
+  // min-widthの場合１pxを追加
+  @if $mq-width == 'min' {
+    @media #{$mq-type} and (#{$mq-width}-width: #{($mq-breakpoint + $onepx  + $unit)}) {
+        @content;
+    }
+  } @else {
+    @media #{$mq-type} and (#{$mq-width}-width: #{($mq-breakpoint + $unit)}) {
+      @content;
+    }
+  }
+}
