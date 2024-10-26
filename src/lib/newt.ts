@@ -3,8 +3,17 @@ import { createClient } from 'newt-client-js'
 export interface Article {
   title: string
   slug: string
-  meta: string
+  meta: {
+    title: string
+    description: string
+  }
   body: string
+  coverImage: {
+    src: string
+    width: number
+    height: number
+    altText: string
+  }
 }
 export interface Tag {
   name: string
@@ -12,8 +21,18 @@ export interface Tag {
 }
 export interface Navigation {
   nav_text: string
-  header_logo: string
-  header_nav: string
+  header_logo: {
+    src: string;
+    width: number;
+    height: number;
+    altText: string;
+  };
+  header_nav: {
+    data: {
+      link_text: string;
+      link_url: string;
+    }
+  }
 }
 
 export const newtClient = createClient({
