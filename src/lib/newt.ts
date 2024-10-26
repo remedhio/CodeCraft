@@ -31,11 +31,9 @@ export interface Navigation {
     height: number;
     altText: string;
   };
-  header_nav: {
-    header_nav: Array<
-    { data: { link_text: string; link_url: string; } }
-    >
-  }
+  header_nav: Array<
+  { data: { link_text: string; link_url: string; } }
+  >
 }
 
 export const newtClient = createClient({
