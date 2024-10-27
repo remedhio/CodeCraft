@@ -1,14 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import BlogPosts from '../components/BlogPosts.astro'
-import Tags from '../components/Tags.astro'
+import Sidebar from '../components/Sidebar.astro'
 import '../sass/style.scss'
 
 ---
 
 <Layout title="Newt・Astroブログ" description="NewtとAstroを利用したブログです">
-	<div class="inner">
+	<div class="home_layout inner">
 		<BlogPosts />
-		<Tags />
+		<Sidebar />
 	</div>
 </Layout>
+
+<style>
+	.home_layout {
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+		gap: 40px;
+	}
+</style>

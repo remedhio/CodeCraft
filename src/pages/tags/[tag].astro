@@ -4,6 +4,7 @@ import { newtClient } from "../../lib/newt";
 import type { Article } from '../../lib/newt'
 import '../../sass/style.scss';
 import BlogPosts from '../../components/BlogPosts.astro'
+import Sidebar from "../../components/Sidebar.astro";
 
 
 export const getStaticPaths = async() => {
@@ -33,8 +34,17 @@ const { posts } = Astro.props; // propsからpostsを取得
 ---
 
 <Layout title={`タグ: ${tag}`} description={`タグ「${tag}」に関連する記事の一覧です。`}>
-  <div class="inner">
-    <h1>タグ: {tag}</h1>
+  <h1>タグ: {tag}の記事一覧ページです。</h1>
+  <div class="home_layout inner">
     <BlogPosts articles={posts} />
+    <Sidebar />
   </div>
 </Layout>
+
+<style>
+  .home_layout {
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+		gap: 40px;
+	}
+</style>

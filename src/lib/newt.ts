@@ -1,6 +1,14 @@
 import { createClient } from 'newt-client-js'
 
 export interface Article {
+  _sys: {
+    createdAt: Date
+    updateAt: Date
+    raw: {
+      firstPublishedAt: Date
+      publishedAt: Date
+    }
+  }
   title: string
   slug: string
   meta: {
@@ -18,6 +26,18 @@ export interface Article {
     name: string
     slug: string
   }>
+  author: {
+    fullName: string;
+    slug: string;
+    biography: string;
+    profileImage: {
+      _id: string;
+      src: string;
+      width: number;
+      height: number;
+      title: string;
+    };
+  };
 }
 export interface Tag {
   name: string

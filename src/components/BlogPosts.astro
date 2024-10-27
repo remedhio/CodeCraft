@@ -26,17 +26,34 @@ const allArticles = articles || (await newtClient.getContents<Article>({
               <div class="post_tags">
               {
                 article.tags.map((tag: { name: string, slug:string }) => {
-                    return (
-                      <a href={`/tags/${tag.slug}`} class="post_tag">
-                        {tag.name}
-                      </a>
-                    )
-                  })
-                }
+                  return (
+                    <a href={`/tags/${tag.slug}`} class="post_tag">
+                      {tag.name}
+                    </a>
+                  )
+                })
+              }
               </div>
               <h2 class="post_ttl">
-                <a href={`/articles/${article.slug}`}>{article.title}</a>
+                <a href={`/articles/${article.slug}`} class="post_link">{article.title}</a>
               </h2>
+              <div class="post_author">
+                <div class="post_author_img">
+                  <img src="https://remedhio.assets.newt.so/v1/6661da76-dc4f-4204-aa51-1b78ef474538/cropped-97324A34-D017-488F-82D0-4D88C86B35E1.png" width={article.author.profileImage.width} height={article.author.profileImage.height} alt={`${article.author.fullName}の画像`} loading="lazy"/>
+                </div>
+                <div class="post_author_info">
+                  <div>投稿者：</div>
+                  <a href={article.author.slug}>{article.author.fullName}</a>
+                </div>
+              </div>
+              <div class="post_date">
+                <p class="post_date_publish-first">
+                  公開日：{new Date(article._sys.raw.firstPublishedAt).toISOString().split('T')[0]}
+                </p>
+                <p class="post_date_publish">
+                  更新日：{new Date(article._sys.raw.publishedAt).toISOString().split('T')[0]}
+                </p>
+              </div>
             </div>
           </li>
         )
@@ -48,14 +65,47 @@ const allArticles = articles || (await newtClient.getContents<Article>({
 </ul>
 
 <style lang="scss">
+  :global(.post_link) {
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+    }
+  }
 	.posts_list {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%) ,1fr));
+    display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%) ,1fr));
 		gap: 32px;
 	}
+  .post_item {
+    position: relative;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    gap: 0;
+    box-shadow: 0 0 10px #e2e2e2;
+    @media(any-hover: hover) {
+      &:hover .post_img img {
+        scale: 1.05;
+      }
+    }
+  }
 	.post_img {
+    width: 100%;
 		aspect-ratio: 16/9;
+    overflow: hidden;
 	}
+  .post_img img {
+    transition: var(--transit-default);
+  }
+  .post_body {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    gap: 8px;
+    padding: 8px 24px 24px 24px;
+  }
 	.post_tags {
 		display: flex;
 		flex-wrap: wrap;
@@ -70,6 +120,27 @@ const allArticles = articles || (await newtClient.getContents<Article>({
 	}
 	.post_ttl {
 		font-size: 1.5rem;
+    line-height: 1.4;
 	}
+  .post_author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .post_author_img {
+    width: 40px;
+    aspect-ratio: 1/1;
+  }
+  .post_author_info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .post_date > p {
+    display: inline-block;
+  }
+  .post_date_publish {
+    margin-left: 8px;
+  }
 
 </style>

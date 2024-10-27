@@ -16,9 +16,10 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
     {
       Navigations.map((Navigation) => {
         return (
-          <div class="header_logo">
+          <a href="/" class="header_logo">
             <img src={Navigation.header_logo.src} width={Navigation.header_logo.width} height={Navigation.header_logo.height} alt={Navigation.header_logo.altText} loading="lazy"/>
-          </div>
+            <span>CodeCraft</span>
+          </a>
         )
       })
     }
@@ -47,7 +48,18 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
 <style lang="scss">
   .header_logo {
 		display: flex;
-		width: 64px;
-		aspect-ratio: 1/1;
+    align-items: center;
+    img {
+      width: 64px;
+      aspect-ratio: 1/1;
+    }
+    span {
+      font-weight: bold;
+    }
 	}
+  .gnav_item {
+    display: flex;
+    gap: 1em;
+    padding-right: 2rem;
+  }
 </style>

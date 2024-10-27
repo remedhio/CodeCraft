@@ -7,7 +7,7 @@ const { items: tags } = await newtClient.getContents<Tag>({
   modelUid: 'tag',
 })
 ---
-<h3 class="ttl-02">タグ一覧</h3>
+<h3 class="ttl-03">タグ一覧</h3>
 <ul class="tag_list">
   {
     tags.map((tag) => {
@@ -17,3 +17,36 @@ const { items: tags } = await newtClient.getContents<Tag>({
     })
   }
 </ul>
+
+<style lang="scss">
+  .ttl-03 {
+    padding-left: .5em;
+    background-color: #7a64d0;
+    color: var(--clr-wh);
+    font-size: 1.5rem;
+  }
+  .tag_list {
+    padding: 1em 1em;
+  }
+  .tag_item a {
+    position: relative;
+    display: block;
+    line-height: 1.5;
+    &::before {
+      --radius: 4px;
+      content: "";
+      position: absolute;
+      top: calc(.5em + var(--radius) / 2);
+      left: -1em;
+      width: var(--radius);
+      height: var(--radius);
+      background-color: #7a64d0;
+      border-radius: 100vmax;
+    }
+    @media(any-hover: hover) {
+      &:hover {
+        color: #7a64d0;
+      }
+    }
+  }
+</style>
