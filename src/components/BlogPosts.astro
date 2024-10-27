@@ -16,7 +16,7 @@ const allArticles = articles || (await newtClient.getContents<Article>({
 <ul class="posts_list">
   {
     allArticles.length > 0 ? (
-      allArticles.map((article) => {
+      allArticles.map((article: Article) => {
         return (
           <li class="post_item">
             <figure class="post_img">
@@ -25,7 +25,7 @@ const allArticles = articles || (await newtClient.getContents<Article>({
             <div class="post_body">
               <div class="post_tags">
               {
-                article.tags.map((tag: { name: string }) => {
+                article.tags.map((tag: { name: string, slug:string }) => {
                     return (
                       <a href={`/tags/${tag.slug}`} class="post_tag">
                         {tag.name}
