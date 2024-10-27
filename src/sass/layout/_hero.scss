@@ -7,7 +7,7 @@
 ********************************************** */
 .hero {
   position: relative;
-  height: rem(767);
+  height: pcrem(767);
 }
 .hero_inner {
   width: 100%;
@@ -23,18 +23,18 @@
 }
 .hero_txtarea {
   position: absolute;
-  bottom: rem(72);
-  left: rem(72);
+  bottom: pcrem(72);
+  left: pcrem(72);
 }
 .hero_txt {
   display: inline-block;
-  padding: rem(10) rem(16);
-  font-size: rem(16);
+  padding: pcrem(10) pcrem(16);
+  font-size: pcrem(16);
   font-weight: 500;
   background-color: var(--clr-wh);
 }
 .hero_ttl {
-  padding: rem(8) rem(24);
+  padding: pcrem(8) pcrem(24);
   font-size: clamp(32px, vw(56), 56px);
   font-weight: 800;
   line-height: 1.42;

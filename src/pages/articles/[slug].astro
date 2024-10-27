@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import { newtClient } from "../../lib/newt";
 import type { Article } from "../../lib/newt";
-import '../../sass/style.scss';
 
 export const getStaticPaths = async() => {
   const { items: articles } = await newtClient.getContents<Article>({
@@ -17,14 +16,71 @@ export const getStaticPaths = async() => {
   }))
 }
 
-const { article } = Astro.props
+const { article } = Astro.props;
 
 ---
 
 <Layout title="投稿詳細ページ" description="投稿詳細ページです。">
   <div class="inner inner-sm">
-    <h2 class="ttl-01">{article.title}</h2>
-    <img src={article.coverImage.src} loading="lazy"/>
-    <article class="article" set:html={article.body} />
+    <div class="post_info">
+      <div class="post_date">
+        <p class="post_date_publish-first">
+          公開日：{new Date(article._sys.raw.firstPublishedAt).toISOString().split('T')[0]}
+        </p>
+        <p class="post_date_publish">
+          更新日：{new Date(article._sys.raw.publishedAt).toISOString().split('T')[0]}
+        </p>
+      </div>
+      <div class="post_tags">
+        {
+          article.tags.map((tag: { slug: string, name: string }) =>  {
+            return (
+              <a href={`/tags/${tag.slug}`} class="post_tag">
+                {tag.name}
+              </a>
+            )
+          })
+        }
+      </div>
+    </div>
+    <h1 class="ttl-01">{article.title}</h1>
+    <div class="blog_img">
+      <img src={article.coverImage.src} loading="lazy"/>
+    </div>
+    <article class="article editor-style-body" set:html={article.body} />
   </div>
 </Layout>
+
+<style>
+  .blog_img {
+    aspect-ratio: 16/9;
+  }
+  .blog_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .post_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .post_tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		padding-block: 1em;
+	}
+	.post_tag {
+		display: inline-block;
+		padding: 4px 12px;
+		background-color: #7a64d0;
+		color: #fff;
+	}
+  .post_date > p {
+    display: inline-block;
+  }
+  .post_date_publish {
+    margin-left: 8px;
+  }
+</style>

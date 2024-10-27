@@ -6,8 +6,8 @@
 ********************************************** */
   .ttl-01 {
     position: relative;
-    margin-bottom: clamp(32px, vw(88), 88px);
-    font-size: rem(48);
+    margin-bottom: clamp(16px, vw(40), 40px);
+    font-size: pcrem(40);
     font-weight: 800;
     line-height: 1.42;
     &:has( + [class*="_txt"] ){
@@ -19,7 +19,7 @@
   }
   .ttl-02 {
     position: relative;
-    font-size: rem(48);
+    font-size: pcrem(32);
     font-weight: 800;
     line-height: 1.5;
     &._underline {
@@ -38,13 +38,13 @@
   }
   .ttl-03 {
     position: relative;
-    font-size: rem(32);
+    font-size: pcrem(32);
     font-weight: 800;
     line-height: 1.5;
   }
   .ttl-04 {
     position: relative;
-    font-size: rem(24);
+    font-size: pcrem(24);
     font-weight: 800;
     line-height: 1.58;
     &._underline {

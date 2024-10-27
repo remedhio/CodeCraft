@@ -14,13 +14,13 @@ html {
   scroll-behavior: smooth;
   @include mq(sp, min, ps) {
     @include mq(med) {
-      font-size: rem($fz-sp);
+      font-size: pcrem($fz-sp);
       overflow-y: auto;
       overflow-x: auto;
     }
   }
   @include mq(sp) {
-    font-size: min(spvw($fz-sp), rem($fz-sp));
+    font-size: min(spvw($fz-sp), pcrem($fz-sp));
   }
 }
 body {
@@ -30,7 +30,7 @@ body {
   font-feature-settings: "palt";
   color: var(--clr-text);
   height: 100%;
-  padding-top: rem($header-hgt);
+  padding-top: pcrem($header-hgt);
   background-color: var(--bg-01);
   word-break: break-word;
   @include mq(sp, min, ps) {
@@ -38,7 +38,7 @@ body {
     font-size: calc-clamp($fz-pc, $wid-var);
     @include mq(med) {
       &:not(.mce-content-body) {
-        min-width: rem(1080);
+        min-width: pcrem(1080);
       }
     }
   }

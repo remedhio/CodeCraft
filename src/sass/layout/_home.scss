@@ -32,10 +32,10 @@
   display: block;
   margin-bottom: -8px;
   color: var(--clr-primary);
-  font-size: rem(14);
+  font-size: pcrem(14);
 }
 .plan_td ._large {
-  font-size: rem(28);
+  font-size: pcrem(28);
 }
 .plan_td:has(.plan_list) {
   text-align: center;
@@ -99,7 +99,7 @@
   background-color: var(--clr-accent);
   border: 1px solid var(--clr-accent);
   color: var(--clr-wh);
-  font-size: rem(16);
+  font-size: pcrem(16);
   font-weight: bold;
   transition: var(--transit-default);
   cursor: pointer;

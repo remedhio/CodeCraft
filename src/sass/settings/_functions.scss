@@ -6,12 +6,12 @@
 ///    REMに変更したい数字
 /// @return {数字}
 ///    REMの変更されたサイズ
-@function rem($size) {
-  $rem-size: math.div($size, $fz-pc);
+@function pcrem($size, $fz: $fz-pc) { // デフォルト値を引数として設定
+  $rem-size: math.div($size, $fz);
   @return #{$rem-size}rem;
 }
-@function sprem($size) {
-  $rem-size: math.div($size, $fz-sp);
+@function sprem($size, $fz: $fz-sp) { // デフォルト値を設定
+  $rem-size: math.div($size, $fz);
   @return #{$rem-size}rem;
 }
 
@@ -61,10 +61,10 @@
 /// 計算されたREMサイズ
 @function calc-fz($size) {
   @if $size <= 24 {
-    @return max($size - 2px, rem($size));
+    @return max($size - 2px, pcrem($size));
   }
   @else {
-    @return rem($size);
+    @return pcrem($size);
   }
 }
 
@@ -79,6 +79,6 @@
 @function calc-clamp($size, $wid-var) {
   $px-size: math.div($size, $wid-pc) * $wid-var * 1px;
   $vw-size: vw($size);
-  $rem-size: rem($size);
+  $rem-size: pcrem($size);
   @return clamp(#{$px-size}, #{$vw-size}, #{$rem-size});
 }

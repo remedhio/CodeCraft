@@ -32,7 +32,7 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 32px;
-    font-size: rem(24);
+    font-size: pcrem(24);
     @media(any-hover: hover) {
         &:hover {
             opacity: .8;
