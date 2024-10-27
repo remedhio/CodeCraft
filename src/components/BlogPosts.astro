@@ -2,39 +2,48 @@
 import { newtClient } from '../lib/newt'
 import type { Article } from '../lib/newt'
 
-const { items: articles } = await newtClient.getContents<Article>({
+// propsからarticlesを受け取る
+const { articles } = Astro.props;
+
+// propsがない場合は全てのブログ記事を取得
+const allArticles = articles || (await newtClient.getContents<Article>({
   appUid: 'blog',
   modelUid: 'article',
-})
+})).items;
+
 ---
 
 <ul class="posts_list">
   {
-    articles.map((article) => {
-      return (
-        <li class="post_item">
-          <figure class="post_img">
-            <img src={article.coverImage.src} width={article.coverImage.width} height={article.coverImage.height} alt={article.coverImage.altText} loading="lazy" class="img-cover"/>
-          </figure>
-          <div class="post_body">
-            <div class="post_tags">
-            {
-              article.tags.map((tag: { name: string }) => {
-                  return (
-                    <span class="post_tag">
-                      {tag.name}
-                    </span>
-                  )
-                })
-              }
+    allArticles.length > 0 ? (
+      allArticles.map((article) => {
+        return (
+          <li class="post_item">
+            <figure class="post_img">
+              <img src={article.coverImage.src} width={article.coverImage.width} height={article.coverImage.height} alt={article.coverImage.altText} loading="lazy" class="img-cover"/>
+            </figure>
+            <div class="post_body">
+              <div class="post_tags">
+              {
+                article.tags.map((tag: { name: string }) => {
+                    return (
+                      <a href={`/tags/${tag.slug}`} class="post_tag">
+                        {tag.name}
+                      </a>
+                    )
+                  })
+                }
+              </div>
+              <h2 class="post_ttl">
+                <a href={`/articles/${article.slug}`}>{article.title}</a>
+              </h2>
             </div>
-            <h2 class="post_ttl">
-              <a href={`/articles/${article.slug}`}>{article.title}</a>
-            </h2>
-          </div>
-        </li>
-      )
-    })
+          </li>
+        )
+      })
+    ) : (
+      <li>記事が見つかりませんでした。</li>
+    )
   }
 </ul>
 

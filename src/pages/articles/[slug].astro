@@ -2,14 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import { newtClient } from "../../lib/newt";
 import type { Article } from "../../lib/newt";
+import '../../sass/style.scss';
 
 export const getStaticPaths = async() => {
   const { items: articles } = await newtClient.getContents<Article>({
     appUid: 'blog',
     modelUid: 'article',
-    // query: {
-    //   select: ['title', 'slug', 'meta', 'coverImage', 'body'],
-    // },
   })
   return articles.map((article) => ({
     params: {
@@ -24,10 +22,9 @@ const { article } = Astro.props
 ---
 
 <Layout title="投稿詳細ページ" description="投稿詳細ページです。">
-  <h2>{article.title}</h2>
-  <p>{article.slug}</p>
-  <p>{article.meta?.title}</p>
-  <p>{article.meta?.description}</p>
-  <img src={article.coverImage.src} loading="lazy"/>
-  <article set:html={article.body} />
+  <div class="inner inner-sm">
+    <h2 class="ttl-01">{article.title}</h2>
+    <img src={article.coverImage.src} loading="lazy"/>
+    <article class="article" set:html={article.body} />
+  </div>
 </Layout>

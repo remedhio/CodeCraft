@@ -1,6 +1,8 @@
 ---
 import type { Navigation } from '../lib/newt'
 import { newtClient } from '../lib/newt'
+import '../sass/style.scss'
+
 
 
 const { items: Navigations } = await newtClient.getContents<Navigation>({

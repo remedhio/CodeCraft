@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { newtClient } from "../../lib/newt";
+import '../../sass/style.scss';
+import BlogPosts from '../../components/BlogPosts.astro'
+
+
+export const getStaticPaths = async() => {
+  const { items: articles } = await newtClient.getContents<Article>({
+    appUid: 'blog',
+    modelUid: 'article',
+  })
+  const uniqueTags = [
+    ...new Set(articles.flatMap((article) =>
+      article.tags.map((tag: { slug: string }) => tag.slug) // tags.slugを取得
+    )),
+  ];
+  return uniqueTags.map((tagSlug) => {
+    const filteredPosts = articles.filter((article) =>
+      article.tags.some((t: { slug: string }) => t.slug === tagSlug) // tags.slugでフィルタリング
+    );
+    return {
+      params: { tag: tagSlug }, // パスのパラメータとしてtagSlugを設定
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params; // URLのパラメータからtagを取得
+const { posts } = Astro.props; // propsからpostsを取得
+
+---
+
+<Layout title={`タグ: ${tag}`} description={`タグ「${tag}」に関連する記事の一覧です。`}>
+  <div class="inner">
+    <h1>タグ: {tag}</h1>
+    <!-- <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul> -->
+    <BlogPosts articles={posts} />
+  </div>
+</Layout>

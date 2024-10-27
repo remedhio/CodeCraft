@@ -1,0 +1,19 @@
+---
+import { newtClient } from '../lib/newt'
+import type { Tag } from '../lib/newt'
+
+const { items: tags } = await newtClient.getContents<Tag>({
+  appUid: 'blog',
+  modelUid: 'tag',
+})
+---
+<h3 class="ttl-02">タグ一覧</h3>
+<ul class="tag_list">
+  {
+    tags.map((tag) => {
+      return (
+        <li class="tag_item"><a href={`/tags/${tag.slug}`}>{tag.name}</a></li>
+      )
+    })
+  }
+</ul>
