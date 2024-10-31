@@ -1,0 +1,88 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PreviewContent from '../../../components/PreviewContent.astro';
+import { getContent } from '../../../lib/newt';
+
+const { model, id } = Astro.params;
+const previewMode = Astro.url.searchParams.get('preview') === 'true';
+const secret = Astro.url.searchParams.get('secret');
+
+// プレビューの認証チェック
+if (previewMode && secret !== import.meta.env.NEWT_PREVIEW_SECRET) {
+  return new Response('Unauthorized', { status: 401 });
+}
+
+if (!model || !id) {
+  return Astro.redirect('/404');
+}
+
+let content;
+try {
+  content = await getContent({
+    appUid: import.meta.env.NEWT_APP_UID,
+    modelUid: model,
+    contentId: id,
+    preview: previewMode,
+  });
+} catch (err) {
+  return Astro.redirect('/404');
+}
+
+// プレビューバッジの表示制御
+const showPreviewBadge = previewMode || content._sys?.status === 'draft';
+---
+
+<Layout title={`Preview: ${content.title || 'Content'}`}>
+  <main class="preview-container">
+    <div class="preview-header">
+      <div class="preview-title">
+        <h1>プレビュー</h1>
+        {showPreviewBadge && (
+          <span class="preview-badge">
+            {content._sys?.status === 'draft' ? 'ドラフト' : 'プレビュー'}
+          </span>
+        )}
+      </div>
+      <div class="preview-meta">
+        <p>モデル: <code>{model}</code></p>
+        <p>ステータス: <code>{content._sys?.status || 'unknown'}</code></p>
+      </div>
+    </div>
+
+    <PreviewContent content={content} contentType={model} />
+  </main>
+</Layout>
+
+<style>
+  .preview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  .preview-header {
+    margin-bottom: 2rem;
+  }
+  .preview-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .preview-badge {
+    background-color: #ff4081;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+  }
+  .preview-meta {
+    font-size: 0.875rem;
+    color: #666;
+  }
+  .preview-meta code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.8em;
+  }
+</style>

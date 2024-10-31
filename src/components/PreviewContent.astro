@@ -1,0 +1,68 @@
+---
+interface Props {
+  content: any;
+  contentType: string;
+}
+
+const { content, contentType } = Astro.props;
+---
+
+<div class="preview-content">
+  {contentType === 'article' && (
+    <article class="article-preview">
+      <h1>{content.title}</h1>
+      {content.coverImage && (
+        <img src={content.coverImage.src} alt={content.coverImage.alt || ''} />
+      )}
+      <div class="article-meta">
+        <time datetime={content.publishedAt}>
+          {new Date(content.publishedAt).toLocaleDateString('ja-JP')}
+        </time>
+      </div>
+      <div class="article-body">
+        <Fragment set:html={content.body} />
+      </div>
+    </article>
+  )}
+  {contentType === 'page' && (
+    <div class="page-preview">
+      <h1>{content.title}</h1>
+      <div class="page-content">
+        <Fragment set:html={content.content} />
+      </div>
+    </div>
+  )}
+  {!['article', 'page'].includes(contentType) && (
+    <pre class="raw-preview">{JSON.stringify(content, null, 2)}</pre>
+  )}
+</div>
+
+<style>
+  .preview-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+  }
+  .article-preview, .page-preview {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .article-meta {
+    color: #666;
+    margin: 1rem 0;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .raw-preview {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+</style>

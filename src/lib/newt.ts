@@ -56,8 +56,41 @@ export interface Navigation {
   >
 }
 
+// Newt CDN APIのクライアント（公開コンテンツのみ取得）
 export const newtClient = createClient({
   spaceUid: import.meta.env.NEWT_SPACE_UID,
   token: import.meta.env.NEWT_CDN_API_TOKEN,
   apiType: 'cdn',
 })
+
+// Newt APIのクライアント（全コンテンツ取得）
+const createNewtClient = (preview = false) => {
+  return createClient({
+    spaceUid: import.meta.env.NEWT_SPACE_UID,
+    token: preview ? import.meta.env.NEWT_API_TOKEN : import.meta.env.NEWT_CDN_API_TOKEN,
+    apiType: preview ? 'api' : 'cdn',
+  });
+};
+
+export const getContent = async (params: {
+  appUid: string;
+  modelUid: string;
+  contentId: string;
+  preview?: boolean;
+}) => {
+  const { appUid, modelUid, contentId, preview = false } = params;
+  const client = createNewtClient(preview);
+
+  try {
+    const content = await client.getContent({
+      appUid,
+      modelUid,
+      contentId,
+      draft: preview,
+    });
+    return content;
+  } catch (err) {
+    console.error('Error fetching content:', err);
+    throw err;
+  }
+};
