@@ -1,5 +1,11 @@
 import type { APIRoute } from 'astro';
-import { newtClient } from '../../lib/newt';
+import { createClient } from 'newt-client-js';
+
+const previewClient = createClient({
+  spaceUid: import.meta.env.NEWT_SPACE_UID,
+  token: import.meta.env.NEWT_API_TOKEN,
+  apiType: 'api',
+});
 
 export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
@@ -16,11 +22,10 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   try {
-    const content = await newtClient.getContent({
+    const content = await previewClient.getContent({
       appUid: import.meta.env.NEWT_APP_UID,
       modelUid: modelName,
       contentId: _id,
-      draft: true,
     });
 
     return new Response(JSON.stringify(content), {

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import PreviewContent from '../../../components/PreviewContent.astro';
-import { getContent } from '../../../lib/newt';
+import { getContent, type BaseContent } from '../../../lib/newt';
 
 const { model, id } = Astro.params;
 const previewMode = Astro.url.searchParams.get('preview') === 'true';
@@ -16,7 +16,7 @@ if (!model || !id) {
   return Astro.redirect('/404');
 }
 
-let content;
+let content: BaseContent;
 try {
   content = await getContent({
     appUid: import.meta.env.NEWT_APP_UID,

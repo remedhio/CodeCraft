@@ -39,6 +39,23 @@ export interface Article {
     };
   };
 }
+// コンテンツの基本的な型定義
+export interface BaseContent {
+  _id: string;
+  _sys: {
+    createdAt: string;
+    updatedAt: string;
+    raw: {
+      createdAt: string;
+      updatedAt: string;
+      firstPublishedAt: string;
+      publishedAt: string;
+    };
+    status: 'draft' | 'published';
+  };
+  title?: string;
+  [key: string]: any;
+}
 export interface Tag {
   name: string
   slug: string
@@ -77,7 +94,7 @@ export const getContent = async (params: {
   modelUid: string;
   contentId: string;
   preview?: boolean;
-}) => {
+}): Promise<BaseContent> => {
   const { appUid, modelUid, contentId, preview = false } = params;
   const client = createNewtClient(preview);
 
@@ -86,9 +103,8 @@ export const getContent = async (params: {
       appUid,
       modelUid,
       contentId,
-      draft: preview,
     });
-    return content;
+    return content as BaseContent;
   } catch (err) {
     console.error('Error fetching content:', err);
     throw err;
