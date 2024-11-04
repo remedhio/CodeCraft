@@ -1,0 +1,32 @@
+---
+import type { PageImg } from '../lib/newt'
+import { newtClient } from '../lib/newt'
+import '../sass/main.scss'
+
+
+
+const { items: PageImgs } = await newtClient.getContents<PageImg>({
+  appUid: 'navigation',
+  modelUid: 'page_img',
+});
+---
+<div class="page_img">
+  {
+    PageImgs.map((PageImg) => {
+      if (PageImg.img) {
+        return (
+          <img
+            src={PageImg.img.src}
+            width={PageImg.img.width}
+            height={PageImg.img.height}
+            alt={PageImg.img.altText}
+            class="img-cover"/>
+        )
+      } else {
+        return (
+          <div style={{ backgroundColor: PageImg.page_color }}></div>
+        )
+      }
+    })
+  }
+</div>

@@ -1,0 +1,26 @@
+---
+
+import '../sass/main.scss'
+
+const { title } = Astro.props;
+
+---
+
+<div class="page_ttl">
+  <h2 class="page_ttl_head">{title}</h2>
+</div>
+
+<style lang="scss" is:global>
+  .page_ttl {
+    position: relative;
+    height: 300px;
+  }
+  .page_ttl_head {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    font-size: fz(20, 40);
+  }
+</style>

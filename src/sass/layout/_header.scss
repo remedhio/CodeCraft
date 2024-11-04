@@ -1,9 +1,5 @@
-@use '../settings' as *;
-@use '../mixins' as *;
-@use '../utilities' as *;
-
-
-
+@use '../abstracts' as *;
+@use '../utilities/image' as *;
 /* ##############################################################################
 
     HEADER

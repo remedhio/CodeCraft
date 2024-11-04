@@ -1,8 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { newtClient } from "../../lib/newt";
 import type { Article } from '../../lib/newt'
-import '../../sass/style.scss';
+import '../sass/main.scss'
+import Layout from "../../layouts/Layout.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import BlogPosts from '../../components/BlogPosts.astro'
 import Sidebar from "../../components/Sidebar.astro";
 
@@ -34,7 +35,7 @@ const { posts } = Astro.props; // propsからpostsを取得
 ---
 
 <Layout title={`タグ: ${tag}`} description={`タグ「${tag}」に関連する記事の一覧です。`}>
-  <h1>タグ: {tag}の記事一覧ページです。</h1>
+  <PageTitle title={`${tag}の記事一覧`}/>
   <div class="home_layout inner">
     <BlogPosts articles={posts} />
     <Sidebar />

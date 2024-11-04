@@ -2,11 +2,13 @@
 import Layout from '../layouts/Layout.astro'
 import BlogPosts from '../components/BlogPosts.astro'
 import Sidebar from '../components/Sidebar.astro'
-import '../sass/style.scss'
+import PageImg from '../components/PageImg.astro'
+
 
 ---
 
 <Layout title="Newt・Astroブログ" description="NewtとAstroを利用したブログです">
+	<PageImg />
 	<div class="home_layout inner">
 		<BlogPosts />
 		<Sidebar />

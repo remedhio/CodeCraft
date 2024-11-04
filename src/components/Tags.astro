@@ -1,6 +1,7 @@
 ---
 import { newtClient } from '../lib/newt'
 import type { Tag } from '../lib/newt'
+import '../sass/main.scss'
 
 const { items: tags } = await newtClient.getContents<Tag>({
   appUid: 'blog',

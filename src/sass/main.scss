@@ -1,0 +1,21 @@
+// 1. Abstracts (変数、関数、ミックスイン)
+@use "abstracts";
+
+// 2. Base (リセット、タイポグラフィ、アニメーション)
+@use "base";
+
+// 3. Components (再利用可能なコンポーネント)
+// @use 'components/';
+
+
+// 4. Layout (レイアウト関連)
+@use "layout";
+
+// 5. Pages (ページ固有のスタイル)
+@use "pages";
+
+// 6. Utilities (ユーティリティ)
+@use "utilities";
+
+// 7. Vendors (外部ライブラリ)
+// @use "vendors";

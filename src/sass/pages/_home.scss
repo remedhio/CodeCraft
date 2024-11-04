@@ -1,7 +1,9 @@
-@use '../settings' as *;
-@use '../mixins' as *;
-@use '../utilities' as *;
+@use '../abstracts' as *;
+@use '../utilities/' as *;
 
+.home_layout {
+  padding-block: pcrem(88);
+}
 .plan_inner {
   margin-bottom: clamp(40px, vw(88), 88px);
 }

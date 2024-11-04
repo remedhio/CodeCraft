@@ -1,5 +1,5 @@
-@use './variables' as *;
 @use 'sass:math';
+@use './variables' as *;
 
 // REMを計算する
 /// @param {数字 単位無し} $size
@@ -81,4 +81,16 @@
   $vw-size: vw($size);
   $rem-size: pcrem($size);
   @return clamp(#{$px-size}, #{$vw-size}, #{$rem-size});
+}
+
+
+@function fz($min, $max, $min-view-port: 414, $max-view-port: 1920) {
+  $valiable-part: calc(($max - $min) / ($max-view-port - $min-view-port));
+  $constant: calc(($max - $max-view-port * $valiable-part) / 16);
+  $min-rem: calc($min / 16 * 1rem);
+  $max-rem: calc($max / 16 * 1rem);
+  $variable-rem: calc($constant * 1rem);
+  $variable-vw: calc(100 * $valiable-part * 1vw);
+
+  @return clamp($min-rem, $variable-rem + $variable-vw, $max-rem);
 }

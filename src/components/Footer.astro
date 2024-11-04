@@ -1,7 +1,6 @@
 ---
 import type { Navigation } from '../lib/newt'
 import { newtClient } from '../lib/newt'
-import '../sass/layout/_header.scss'
 import '../sass/main.scss'
 
 
@@ -11,31 +10,26 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
 })
 ---
 
-<header class="header">
-  <div class="header_inner">
+<footer class="footer">
+  <div class="footer_inner">
     {
       Navigations.map((Navigation) => {
         return (
-          <a href="/" class="header_logo">
-            <img src={Navigation.logo.src}
-                 width={Navigation.logo.width}
-                 height={Navigation.logo.height}
-                 alt={Navigation.logo.altText}
-                 loading="lazy"
-                 class="header_logo_img" />
+          <a href="/" class="footer_logo">
+            <img src={Navigation.logo.src} width={Navigation.logo.width} height={Navigation.logo.height} alt={Navigation.logo.altText} loading="lazy"/>
             <span>CodeCraft</span>
           </a>
         )
       })
     }
-    <nav class="gnav">
-      <ul class="gnav_list">
+    <nav class="fnav">
+      <ul class="fnav_list">
         {
           Navigations.map((Navigation) => {
             return (
-              <li class="gnav_item">
+              <li class="fnav_item">
                 {
-                  Navigation.header_nav.map((nav: { data: { link_text: string; link_url: string; } }) => {
+                  Navigation.footer_nav.map((nav: { data: { link_text: string; link_url: string; } }) => {
                 return(
                       <a href={nav.data.link_url}>{nav.data.link_text}</a>
                     )
@@ -48,10 +42,13 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
       </ul>
     </nav>
   </div>
-</header>
+</footer>
 
 <style lang="scss">
-  .header_logo {
+  .footer {
+    background-color: var(--bg-05);
+  }
+  .footer_logo {
 		display: flex;
     align-items: center;
     img {
@@ -62,7 +59,12 @@ const { items: Navigations } = await newtClient.getContents<Navigation>({
       font-weight: bold;
     }
 	}
-  .gnav_item {
+  .footer_inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fnav_item {
     display: flex;
     gap: 1em;
     padding-right: 2rem;

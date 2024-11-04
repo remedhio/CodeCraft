@@ -62,7 +62,7 @@ export interface Tag {
 }
 export interface Navigation {
   nav_text: string
-  header_logo: {
+  logo: {
     src: string;
     width: number;
     height: number;
@@ -71,6 +71,20 @@ export interface Navigation {
   header_nav: Array<
   { data: { link_text: string; link_url: string; } }
   >
+  footer_nav: Array<
+  { data: { link_text: string; link_url: string; } }
+  >
+}
+export interface PageImg {
+  title: string;
+  img: {
+    _id: string;
+    src: string;
+    width: number;
+    height: number;
+    altText: string;
+  };
+  page_color: string;
 }
 
 // Newt CDN APIのクライアント（公開コンテンツのみ取得）
