@@ -1,0 +1,55 @@
+@use '../abstracts/' as *;
+
+.contact_form_wrapper {
+  padding-block: 72px;
+}
+.contact_form {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form_label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form_label:has(+ .form_input[required]),
+.form_label:has(+ .form_txtarea[required]) {
+  &::after {
+    content: "必須";
+    margin-left: 1em;
+    padding: .3em 1em;
+    border-radius: 100vmax;
+    font-size: .5em;
+    background-color: red;
+    color: var(--clr-wh);
+  }
+}
+.form_input,
+.form_txtarea {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.form_btn {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: .5em 1em;
+  border: 1px solid var(--clr-primary);
+  background-color: var(--clr-primary);
+  color: var(--clr-wh);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transit-default);
+  &:hover {
+    background-color: var(--clr-wh);
+    border: 1px solid var(--clr-primary);
+    color: var(--clr-text);
+  }
+}

@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:map';
 
 $em-breakpoints: (
   xl: 160, // 2560px
@@ -42,8 +43,8 @@ $px-breakpoints: (
     $onepx: 1;
     $unit: 'px';
   }
-  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
-      $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+  @if map.has-key($mq-breakpoints, $mq-breakpoint) {
+      $mq-breakpoint: map.get($mq-breakpoints, $mq-breakpoint);
   }
   @else {
     @if $mq-breakpoints == $em-breakpoints {

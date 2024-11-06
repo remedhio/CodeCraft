@@ -37,10 +37,6 @@
     flex: 1;
     @extend .img-cover;
 }
-.header_txt {
-    font-size: pcrem(24);
-    font-weight: 800;
-}
 
 .gnav {
     display: flex;
@@ -57,7 +53,7 @@
 }
 .gnav_item {
     font-size: pcrem(16);
-    font-weight: 800;
+    font-weight: 600;
 }
 .gnav_item a {
     @media(any-hover: hover) {

@@ -1,0 +1,21 @@
+@use "../abstracts";
+
+.btn._ctr {
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn a {
+  display: inline-block;
+  width: 280px;
+  padding: 8px 12px;
+  text-align: center;
+  border: 1px solid var(--clr-primary);
+  background-color: var(--clr-primary);
+  color: var(--clr-wh);
+  @media(any-hover: hover) {
+    &:hover {
+      background-color: var(--clr-wh);
+      color: var(--clr-primary);
+    }
+  }
+}
