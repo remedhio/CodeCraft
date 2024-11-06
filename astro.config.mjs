@@ -6,18 +6,19 @@ import vercel from '@astrojs/vercel/serverless'; // Vercelアダプターをイ�
 export default defineConfig({
   output: 'server', // または 'hybrid'
   adapter: vercel(), // Vercelアダプターを追加
-  // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       scss: {
-  //         additionalData: `
-  //         @use "src/sass/abstracts/functions.scss" as *;
-  //         @use "src/sass/abstracts/mixins.scss" as *;
-  //         @use "src/sass/abstracts/mq.scss" as *;
-  //         @use "src/sass/abstracts/variables.scss" as *;
-  //         `,
-  //       },
-  //     },
-  //   },
-  // },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+          // additionalData: `
+          // @use "src/sass/abstracts/functions.scss" as *;
+          // @use "src/sass/abstracts/mixins.scss" as *;
+          // @use "src/sass/abstracts/mq.scss" as *;
+          // @use "src/sass/abstracts/variables.scss" as *;
+          // `,
+        },
+      },
+    },
+  },
 });
