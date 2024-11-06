@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro"
+import PageTitle from '../components/PageTitle.astro'
+
+---
+
+<Layout
+  title="Newt・Astroフォーム"
+  description="NewtとAstroを利用した問い合わせフォームです"
+>
+  <div>
+    <PageTitle title="お問い合わせ" />
+    <div class="contact_form_wrapper">
+      <form id="form" action="https://remedhio.form.newt.so/v1/8X_R4yC8_" method="post" class="contact_form">
+        <label for="name" class="form_label">名前</label>
+        <input id="name" name="name" class="form_input" required placeholder="佐藤 太郎"/>
+        <label for="email" class="form_label">メールアドレス</label>
+        <input id="email" name="email" type="email" class="form_input" required/ placeholder="aisample@gmail.com">
+        <label for="message" class="form_label">備考欄</label>
+        <textarea id="message" name="message" class="form_txtarea" placeholder="ご質問やご相談内容をご自由にご記入ください" rows="5"></textarea>
+        <button type="submit" class="form_btn">送信する</button>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script
+  is:inline
+  src="https://www.google.com/recaptcha/api.js?render=6Lcu-XUqAAAAAM0Na49Y-j0UwZcANlkyAYL2_PL2&hl=ja"
+></script>
+<script>
+  // グローバルスコープでgrecaptchaを定義
+  let grecaptcha: typeof window.grecaptcha | undif;
+
+  // Google reCAPTCHAのスクリプトを読み込む
+  const loadReCaptcha = () => {
+    const script = document.createElement('script');
+    script.src = "https://www.google.com/recaptcha/api.js?render=6Lcu-XUqAAAAAM0Na49Y-j0UwZcANlkyAYL2_PL2&hl=ja";
+    script.onload = () => {
+      grecaptcha = window.grecaptcha; // スクリプトが読み込まれた後にgrecaptchaを設定
+    };
+    document.head.appendChild(script);
+  };
+
+  loadReCaptcha(); // reCAPTCHAを読み込む
+
+  const form = document.getElementById('form')
+  form?.addEventListener('submit', submitFormData)
+
+  function submitFormData(event: Event) {
+    event.preventDefault()
+    grecaptcha?.ready(() => {
+      grecaptcha
+        .execute('6Lcu-XUqAAAAAM0Na49Y-j0UwZcANlkyAYL2_PL2', { action: 'submit' })
+        .then(async (token) => {
+          const target = event.target as typeof event.target & {
+            name: { value: string }
+            email: { value: string }
+            message: { value: string }
+          }
+
+          const data = {
+            name: target.name.value,
+            email: target.email.value,
+            message: target.message.value,
+            googleReCaptchaToken: token,
+          }
+
+          const formData = new FormData()
+          Object.entries(data).forEach(([key, value]) => {
+            formData.append(key, value)
+          })
+
+          try {
+            const response = await sendRequest(formData)
+            if (response.ok) {
+              location.href = '/thanks'
+            } else {
+              location.href = '/error'
+            }
+          } catch (err) {
+            location.href = '/error'
+          }
+        })
+    })
+  }
+
+  async function sendRequest(formData: FormData) {
+    return await fetch('https://remedhio.form.newt.so/v1/8X_R4yC8_', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+  }
+</script>

@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+---
+
+<Layout title="Thank you" description="お問い合わせの送信が成功しました">
+  <PageTitle title="お問い合わせの送信が成功しました。"/>
+  <div class="thanks_container">
+    <p class="thanks_txt">お問い合わせを受け付けました。内容を確認のうえ、通常2～3営業日以内にご返信いたします。</p>
+    <p class="thanks_txt">ご入力いただいたメールアドレス宛に確認メールをお送りしております。<br>
+    万が一確認メールが届かない場合は、迷惑メールフォルダや設定をご確認ください。</p>
+    <div class="btn _ctr">
+      <a href="/contact">お問い合わせページに戻る</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .thanks_container {
+    padding-block: 72px;
+  }
+  .thanks_txt {
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: var(--line-height-default);
+  }
+</style>

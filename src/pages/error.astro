@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+---
+
+<Layout title="Error" description="問い合わせの送信が失敗しました">
+  <PageTitle title="お問い合わせの送信が失敗しました。"/>
+  <div class="btn _ctr">
+    <a href="/contact">お問い合わせページに戻る</a>
+  </div>
+</Layout>
+
+<style>
+  .btn {
+    margin-block: 64px;
+  }
+</style>
