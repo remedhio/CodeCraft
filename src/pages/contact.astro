@@ -30,14 +30,14 @@ import PageTitle from '../components/PageTitle.astro'
 ></script>
 <script>
   // グローバルスコープでgrecaptchaを定義
-  let grecaptcha: typeof window.grecaptcha | undif;
+  let grecaptcha = (window as any).grecaptcha || undefined;
 
   // Google reCAPTCHAのスクリプトを読み込む
   const loadReCaptcha = () => {
     const script = document.createElement('script');
     script.src = "https://www.google.com/recaptcha/api.js?render=6Lcu-XUqAAAAAM0Na49Y-j0UwZcANlkyAYL2_PL2&hl=ja";
     script.onload = () => {
-      grecaptcha = window.grecaptcha; // スクリプトが読み込まれた後にgrecaptchaを設定
+      grecaptcha = (window as any).grecaptcha; // スクリプトが読み込まれた後にgrecaptchaを設定
     };
     document.head.appendChild(script);
   };
@@ -52,7 +52,7 @@ import PageTitle from '../components/PageTitle.astro'
     grecaptcha?.ready(() => {
       grecaptcha
         .execute('6Lcu-XUqAAAAAM0Na49Y-j0UwZcANlkyAYL2_PL2', { action: 'submit' })
-        .then(async (token) => {
+        .then(async (token: string) => {
           const target = event.target as typeof event.target & {
             name: { value: string }
             email: { value: string }
